@@ -10,13 +10,27 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.widget.Toast
 
-class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    HomeActivityRecyclerViewAdapter.OnClickLenderListener{
+
+    lateinit var allSampleData:ArrayList<SectionModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setSupportActionBar(toolbar)
+        createDummyData()
+        val homeContentRecyclerView = findViewById<RecyclerView>(R.id.home_content_rv)
+        homeContentRecyclerView.setHasFixedSize(true)
+        val adapter = HomeActivityRecyclerViewAdapter(this, allSampleData)
+        homeContentRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        adapter.setOnClickListener(this)
+        homeContentRecyclerView.adapter = adapter
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -29,6 +43,14 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+    }
+
+    override fun onClickSectionMore(section: Int) {
+        Toast.makeText(this, "more section Position $section",Toast.LENGTH_LONG).show()
+    }
+
+    override fun onClickSectionItem(section: Int, position: Int) {
+        Toast.makeText(this, "more section Position $section $position",Toast.LENGTH_LONG).show()
     }
 
     override fun onBackPressed() {
@@ -80,5 +102,17 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    fun createDummyData() {
+        allSampleData = ArrayList<SectionModel>()
+        for (i in 1..5) {
+            val singleItem = ArrayList<SectionItemModel>()
+            for (j in 0..5) {
+                singleItem.add(SectionItemModel("Item $j", "https://picsum.photos/200/200/?blur"))
+            }
+            allSampleData.add(SectionModel("Section $i",singleItem))
+
+        }
     }
 }
