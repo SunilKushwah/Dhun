@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import com.example.sunil.dhun.data.Song
 
 class HomeActivityRecyclerViewAdapter(val context:Context, val data:ArrayList<SectionModel>):
     RecyclerView.Adapter<HomeActivityRecyclerViewAdapter.SectionViewHolder>(){
-
     lateinit var clickListener: OnClickLenderListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionViewHolder {
@@ -26,8 +26,15 @@ class HomeActivityRecyclerViewAdapter(val context:Context, val data:ArrayList<Se
     override fun onBindViewHolder(holder: SectionViewHolder, position: Int) {
         holder.bindItem(data[position])
     }
+
     fun setOnClickListener(clickListener: OnClickLenderListener){
         this.clickListener = clickListener
+    }
+
+    fun setData(refreshedData: ArrayList<SectionModel>) {
+        data.clear()
+        data.addAll(refreshedData)
+        notifyDataSetChanged()
     }
 
 

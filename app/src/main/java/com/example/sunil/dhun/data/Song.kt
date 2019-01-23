@@ -9,17 +9,17 @@ import android.arch.persistence.room.PrimaryKey
 class Song(
     @PrimaryKey(autoGenerate = true)
     val id:Int,
-    private val song:String,
-    private val artist:String,
+    val song:String,
+    val artist:String,
     @ColumnInfo(name = "icon_url")
-    private val iconUrl:String,
+    val iconUrl:String,
     @ColumnInfo(name = "total_time")
-    private val totalTime:Long,
+    val totalTime:Long,
     @ColumnInfo(name = "resumed_time")
-    private val resumedTime:Long,
+    val resumedTime:Long,
     @ColumnInfo(name = "add_to_favourites")
-    private val addToFavourites:Boolean,
-    private val repeat:Boolean) {
+    val addToFavourites:Boolean,
+    val repeat:Boolean) {
     override fun toString(): String {
         return "$id - $song - $artist - $iconUrl - $totalTime - $resumedTime - $addToFavourites - $repeat"
     }
