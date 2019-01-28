@@ -24,7 +24,7 @@ class OldHomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setSupportActionBar(toolbar)
-        createDummyData()
+        // createDummyData()
         val homeContentRecyclerView = findViewById<RecyclerView>(R.id.home_content_rv)
         homeContentRecyclerView.setHasFixedSize(true)
         val adapter = HomeActivityRecyclerViewAdapter(this, allSampleData)
@@ -104,7 +104,7 @@ class OldHomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         return true
     }
 
-    fun createDummyData() {
+    /*fun createDummyData() {
         allSampleData = ArrayList<SectionModel>()
         for (i in 1..5) {
             val singleItem = ArrayList<SectionItemModel>()
@@ -114,5 +114,5 @@ class OldHomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             allSampleData.add(SectionModel("Section $i",singleItem))
 
         }
-    }
+    }*/
 }

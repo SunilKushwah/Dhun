@@ -42,7 +42,7 @@ class SectionRecyclerViewAdapter(val context: Context, val data:ArrayList<Sectio
             val itemImage = itemView.findViewById<ImageView>(R.id.item_iv)
             val itemTitle = itemView.findViewById<TextView>(R.id.title_tv)
             val itemCardView = itemView.findViewById<CardView>(R.id.section_item_cv)
-            itemTitle.text=item.name
+            itemTitle.text=item.song
             Glide.with(itemView.context)
                 .load(item.url)
                 .into(itemImage)

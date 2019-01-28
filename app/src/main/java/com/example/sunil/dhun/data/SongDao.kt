@@ -1,5 +1,6 @@
 package com.example.sunil.dhun.data
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
@@ -18,5 +19,5 @@ interface SongDao {
     fun deleteAll()
 
     @Query("SELECT * FROM song_table")
-    fun getAllSongs(): MutableLiveData<List<Song>>
+    fun getAllSongs(): LiveData<List<Song>>
 }

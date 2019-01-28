@@ -15,7 +15,7 @@ import android.os.AsyncTask
 
 
 
-@Database(entities = [Song::class], version = 1)
+@Database(entities = [Song::class], version = 1,exportSchema = false)
 abstract class DhunRoomDatabase: RoomDatabase() {
     abstract fun songDao():SongDao
 
@@ -26,11 +26,7 @@ abstract class DhunRoomDatabase: RoomDatabase() {
             if(INSTANCE==null){
                 synchronized(DhunRoomDatabase::class.java) {
                     if (INSTANCE == null) {
-                        INSTANCE = Room.databaseBuilder(
-                            context.applicationContext,
-                            DhunRoomDatabase::class.java, "dhun_database"
-                        ).addCallback(sRoomDatabaseCallback)
-                            .build()
+                        INSTANCE = Room.databaseBuilder(context.applicationContext, DhunRoomDatabase::class.java, "dhun.db").addCallback(sRoomDatabaseCallback).build()
                     }
                 }
             }

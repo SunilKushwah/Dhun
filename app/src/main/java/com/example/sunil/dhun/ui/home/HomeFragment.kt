@@ -12,10 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.sunil.dhun.HomeActivityRecyclerViewAdapter
-import com.example.sunil.dhun.R
-import com.example.sunil.dhun.SectionItemModel
-import com.example.sunil.dhun.SectionModel
+import com.example.sunil.dhun.*
 import com.example.sunil.dhun.data.Song
 
 
@@ -44,22 +41,21 @@ class HomeFragment : Fragment(), HomeActivityRecyclerViewAdapter.OnClickLenderLi
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(HomeViewModel(Application())::class.java)
-        viewModel.getAllSongs().observe(this, object:Observer<List<Song>>{
-            override fun onChanged(t: List<Song>?) {
+        viewModel = ViewModelProviders.of(this).get(HomeViewModel(MyApplication.instance)::class.java)
+        viewModel.getAllSongs().observe(this,
+            Observer<List<Song>> { t ->
                 allSampleData = ArrayList()
                 for (i in 1..5) {
                     val singleItem = ArrayList<SectionItemModel>()
                     for (j in t!!.indices) {
                         val song = t[j]
-                        singleItem.add(SectionItemModel(song.id,song.song,song.iconUrl))
+                        singleItem.add(SectionItemModel(song.id,song.song,song.artist,song.iconUrl))
                     }
                     allSampleData.add(SectionModel("Section $i",singleItem))
 
                 }
                 adapter.setData(allSampleData)
-            }
-        })
+            })
     }
 
     override fun onClickSectionMore(section: Int) {
@@ -67,10 +63,11 @@ class HomeFragment : Fragment(), HomeActivityRecyclerViewAdapter.OnClickLenderLi
     }
 
     override fun onClickSectionItem(section: Int, position: Int) {
-        Toast.makeText(context, "more section Position $section $position",Toast.LENGTH_LONG).show()
+        val data:SectionItemModel = allSampleData[section].items[position]
+        Toast.makeText(context, "song:id-${data.id}song-${data.song}artist-${data.artist}url-${data.url}",Toast.LENGTH_LONG).show()
     }
 
-    private fun createDummyData() {
+   /* private fun createDummyData() {
         allSampleData = ArrayList()
         for (i in 1..5) {
             val singleItem = ArrayList<SectionItemModel>()
@@ -80,6 +77,6 @@ class HomeFragment : Fragment(), HomeActivityRecyclerViewAdapter.OnClickLenderLi
             allSampleData.add(SectionModel("Section $i",singleItem))
 
         }
-    }
+    }*/
 
 }

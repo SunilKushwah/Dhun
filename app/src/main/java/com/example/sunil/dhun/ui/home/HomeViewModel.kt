@@ -1,25 +1,32 @@
 package com.example.sunil.dhun.ui.home
 
 import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.example.sunil.dhun.MyApplication
 import com.example.sunil.dhun.data.DhunRepository
+import com.example.sunil.dhun.data.DhunRoomDatabase
 import com.example.sunil.dhun.data.Song
 
-class HomeViewModel(application: Application) : ViewModel() {
+class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
-    lateinit var mRepository: DhunRepository
-    private lateinit var mAllSongs: MutableLiveData<List<Song>>
+    private val repository: DhunRepository
+    val mAllSongs: LiveData<List<Song>>
+
     init {
-        mRepository = DhunRepository(Application())
-        mAllSongs = mRepository.getAllSongs()
+        val songsDao = DhunRoomDatabase.getDatabase(application)!!.songDao()
+        repository = DhunRepository(application)
+        mAllSongs = repository.allSong
     }
 
-    fun getAllSongs(): MutableLiveData<List<Song>> {
+
+    fun getAllSongs(): LiveData<List<Song>> {
         return mAllSongs
     }
 
     fun insert(song: Song){
-        mRepository.insert(song)
+        repository!!.insert(song)
     }
 }

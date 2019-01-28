@@ -1,13 +1,14 @@
 package com.example.sunil.dhun.data
 
 import android.app.Application
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.os.AsyncTask
 
 
 class DhunRepository {
     var mSongDao:SongDao
-    var allSong:MutableLiveData<List<Song>>
+    var allSong: LiveData<List<Song>>
 
     constructor(application: Application){
         val db = DhunRoomDatabase.getDatabase(application)
@@ -15,7 +16,7 @@ class DhunRepository {
         allSong = mSongDao.getAllSongs()
     }
 
-    fun getAllSongs():MutableLiveData<List<Song>>{
+    fun getAllSongs():LiveData<List<Song>>{
         return allSong
     }
 

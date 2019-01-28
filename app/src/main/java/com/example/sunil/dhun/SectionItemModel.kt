@@ -1,3 +1,3 @@
 package com.example.sunil.dhun
 
-class SectionItemModel(val id:Int, val name:String, val url:String)
+class SectionItemModel(val id:Int, val song:String,val artist:String, val url:String)
